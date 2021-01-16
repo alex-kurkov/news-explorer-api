@@ -5,7 +5,7 @@
 /build
 
 # misc
-.env
+*.env
 
 # logs
 *.log
