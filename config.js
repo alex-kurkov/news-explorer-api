@@ -10,9 +10,10 @@ const whiteListCors = [
 const mongoDBName = 'mongodb://localhost:27017/news-explorer';
 
 const {
-  NODE_ENV, JWT_SECRET, PORT = 3000,
+  NODE_ENV, JWT_SECRET, PORT_PROD,
 } = process.env;
 const SECRET = NODE_ENV === 'production' ? JWT_SECRET : 'dev';
+const PORT = NODE_ENV === 'production' && PORT_PROD ? PORT_PROD : 3000;
 
 module.exports = {
   whiteListCors, mongoDBName, PORT, SECRET,
