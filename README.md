@@ -47,7 +47,7 @@ Notice, that you should have *GIT*, *Node-JS* of version 14+ installed as well a
 
 
 ## Usage
-After deployment **Mesto app** is available to make requests at [http://localhost:3000/](http://localhost:3000/)
+After deployment **News-explorer API** is available to make requests at [http://localhost:3000/](http://localhost:3000/)
 
 # REST API Routes:
   - POST:'/signup' *create new user*
