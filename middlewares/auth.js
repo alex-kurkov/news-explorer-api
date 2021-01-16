@@ -1,21 +1,23 @@
 const jwt = require('jsonwebtoken');
-
-const { NODE_ENV, JWT_SECRET } = process.env;
+const { SECRET } = require('../config');
 const { AuthorizationError } = require('../errors/index');
+const errorMessage = require('../errorMessagesConfig');
 
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
-  if (!authorization || !authorization.startsWith('Bearer ')) throw new AuthorizationError('Авторизация отклонена - отсутствует или неправильно передан токен');
+  if (!authorization || !authorization.startsWith('Bearer ')) {
+    throw new AuthorizationError(errorMessage.authorization.noToken);
+  }
   const token = authorization.replace('Bearer ', '');
 
   let payload;
   try {
     payload = jwt.verify(
       token,
-      NODE_ENV === 'production' ? JWT_SECRET : 'dev',
+      SECRET,
     );
   } catch (e) {
-    throw new AuthorizationError('Авторизация отклонена - токен не валиден или истек');
+    throw new AuthorizationError(errorMessage.authorization.invalidToken);
   }
   req.user = payload;
   next();

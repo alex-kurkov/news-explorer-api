@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -9,9 +8,8 @@ const router = require('./routes/index');
 const errorHandler = require('./middlewares/error-handler');
 const { rateLimiter } = require('./middlewares/rateLimiter');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { whiteListCors, mongoDBName } = require('./config');
+const { PORT, whiteListCors, mongoDBName } = require('./config');
 
-const { PORT = 3000 } = process.env;
 const app = express();
 
 mongoose.connect(mongoDBName, {
@@ -26,10 +24,11 @@ app.use(cors({
 }));
 app.set('trust proxy', 1);
 app.use(rateLimiter);
-
 app.use(helmet());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(requestLogger);
 app.use('', router);
 app.use(errorLogger);

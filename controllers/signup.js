@@ -1,12 +1,15 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const { AuthorizationError } = require('../errors/index');
+const errorMessage = require('../errorMessagesConfig');
 
 const signup = (req, res, next) => {
   const {
     email, password, name,
   } = req.body;
-  if (!email || !password || !name) throw new AuthorizationError('не предоставлены email, пароль или имя');
+  if (!email || !password || !name) {
+    throw new AuthorizationError(errorMessage.authorization.incompleteWithName);
+  }
   bcrypt.hash(password, 12)
     .then((hash) => User.create({
       email, password: hash, name,

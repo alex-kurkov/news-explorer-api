@@ -1,7 +1,9 @@
+const errorMessage = require('../errorMessagesConfig');
+
 const errorHandler = (err, req, res, next) => {
   const error = {
     statusCode: err.statusCode || 500,
-    message: err.message || 'Ошибка сервера',
+    message: err.message || errorMessage.default,
   };
   // 404 and 403 errors are passed through immutated
   if (err.name === 'ValidationError') {
@@ -10,15 +12,15 @@ const errorHandler = (err, req, res, next) => {
   }
   if (err.name === 'MongoError') {
     error.statusCode = 409;
-    error.message = 'Пользователь с таким email уже зарегистрирован';
+    error.message = errorMessage.mongo;
   }
   if (err.name === 'CastError') {
     error.statusCode = 422;
-    error.message = 'В запросе переданы значения неправильного типа';
+    error.message = errorMessage.cast;
   }
   if (err.name === 'DisconnectedError') {
     error.statusCode = 503;
-    error.message = 'нет соединения с базой данных';
+    error.message = errorMessage.dbDisconnected;
   }
   res.status(error.statusCode).send({ message: error.message });
   next();
