@@ -5,7 +5,7 @@ const signupValidator = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().pattern(regExpEmail)
       .message({
-        'string.pattern.base': 'поле должно быть валидным email',
+        'string.pattern.base': 'должно быть валидным email',
       }),
     password: Joi.string().required().min(6)
       .message({
@@ -17,8 +17,9 @@ const signupValidator = celebrate({
         'string.max': 'не более 30 символов',
       }),
   }).messages({
-    'string.empty': 'поле должно быть непустой строкой',
+    'string.empty': 'должно быть непустой строкой',
     'any.required': 'обязательное поле',
+    'object.unknown': 'поле не разрешено',
   }),
 });
 
@@ -26,15 +27,16 @@ const signinValidator = celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().pattern(regExpEmail)
       .message({
-        'string.pattern.base': 'поле должно быть валидным email',
+        'string.pattern.base': 'должно быть валидным email',
       }),
     password: Joi.string().required().min(6)
       .message({
         'string.min': 'не меньше 6 символов',
       }),
   }).messages({
-    'string.empty': 'поле должно быть непустой строкой',
+    'string.empty': 'должно быть непустой строкой',
     'any.required': 'обязательное поле',
+    'object.unknown': 'поле не разрешено',
   }),
 });
 
@@ -47,15 +49,16 @@ const postArticleValidator = celebrate({
     source: Joi.string().required(),
     image: Joi.string().required().pattern(regExpUrl)
       .message({
-        'string.pattern.base': 'поле image должно быть валидной ссылкой',
+        'string.pattern.base': 'должно быть валидной ссылкой',
       }),
     link: Joi.string().required().pattern(regExpUrl)
       .message({
-        'string.pattern.base': 'поле link должно быть валидной ссылкой',
+        'string.pattern.base': 'должно быть валидной ссылкой',
       }),
   }).messages({
-    'string.empty': 'поле должно быть непустой строкой',
+    'string.empty': 'должно быть непустой строкой',
     'any.required': 'обязательное поле',
+    'object.unknown': 'поле не разрешено',
   }),
 });
 
@@ -63,8 +66,9 @@ const deleteArticleValidator = celebrate({
   params: Joi.object().keys({
     id: Joi.string().length(24).required(),
   }).messages({
-    'string.length': 'id должен состоять из 24 символов',
+    'string.length': 'должен состоять из 24 символов',
     'any.required': 'обязательное поле',
+    'object.unknown': 'поле не разрешено',
   }),
 });
 

@@ -2,7 +2,7 @@ const Article = require('../models/article');
 const { NotFoundError, ForbiddenError } = require('../errors/index');
 
 module.exports.getArticles = (req, res, next) => {
-  Article.find()
+  Article.find({ owner: req.user._id })
     .orFail(new NotFoundError('статьи не найдены'))
     .select()
     .then((articles) => res.status(200).send(articles))
