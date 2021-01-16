@@ -15,13 +15,13 @@ see [Usage](#Usage) for REST API requests
 
 
 ### **Content**
-  - [About](#About-Server-Mesto)
+  - [About](#About)
   - [Setting Up](#Setting-Up)
   - [Usage](#Usage)
   - [Technologies used](#Technologies-used)
 ---------------------
 
-## About Server Mesto
+## About
 - The backend SPA News-Explorer, implementing REST.API to provide frontend app with DATABASE storage of users and articles
 
 ## Setting Up
