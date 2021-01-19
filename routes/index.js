@@ -5,13 +5,12 @@ const signup = require('../controllers/signup');
 const signin = require('../controllers/signin');
 const articlesRouter = require('./articles');
 const usersRouter = require('./users');
-const notFoundRouter = require('./404');
-
-router.use('/users', auth, usersRouter);
-router.use('/articles', auth, articlesRouter);
+const notFoundController = require('../controllers/404');
 
 router.post('/signup', signupValidator, signup);
 router.post('/signin', signinValidator, signin);
-router.use('*', auth, notFoundRouter);
+router.use('/users', auth, usersRouter);
+router.use('/articles', auth, articlesRouter);
+router.all('*', auth, notFoundController);
 
 module.exports = router;
