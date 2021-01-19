@@ -1,11 +1,13 @@
-const AuthorizationError = require('./authorization-error');
-const ForbiddenError = require('./forbidden-error');
+const UnauthorizedError = require('./unauthorized-error');
 const NotFoundError = require('./not-found-error');
 const ValidationError = require('./validation-error');
+const ConflictError = require('./conflict-error');
+const ForbiddenError = require('./forbidden-error');
 
 module.exports = {
-  AuthorizationError,
-  ForbiddenError,
+  UnauthorizedError,
   NotFoundError,
   ValidationError,
+  ConflictError,
+  ForbiddenError,
 };

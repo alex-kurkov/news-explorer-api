@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
+/* const { errors } = require('celebrate'); */
 const celebrateCustomErrorHandler = require('./middlewares/celebrateCustomErrorHandler');
 const router = require('./routes/index');
 const errorHandler = require('./middlewares/error-handler');
@@ -30,8 +31,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(requestLogger);
-app.use('', router);
+app.use(router);
 app.use(errorLogger);
+/* app.use(errors()); */
 app.use(celebrateCustomErrorHandler);
 app.use(errorHandler);
 

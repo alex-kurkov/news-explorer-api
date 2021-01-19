@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const errorMessage = require('../errorMessagesConfig');
 const { SECRET } = require('../config');
 const { AuthorizationError } = require('../errors/index');
+const errorMessage = require('../errorMessagesConfig');
 
 const signin = (req, res, next) => {
   const { email, password } = req.body;
@@ -16,9 +16,7 @@ const signin = (req, res, next) => {
         SECRET,
         { expiresIn: '7d' },
       );
-      res
-        .status(200)
-        .send({ token });
+      res.send({ token });
     })
     .catch(next);
 };

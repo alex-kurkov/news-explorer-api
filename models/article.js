@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const validate = require('validator');
 
 const articleSchema = new mongoose.Schema({
   keyword: {
@@ -24,10 +25,22 @@ const articleSchema = new mongoose.Schema({
   link: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return validate.isURL(v);
+      },
+      message: ({ value }) => `${value} - некорректная ссылка`,
+    },
   },
   image: {
     type: String,
     required: true,
+    validate: {
+      validator(v) {
+        return validate.isURL(v);
+      },
+      message: ({ value }) => `${value} -  некорректная ссылка`,
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,

@@ -12,6 +12,6 @@ router.use('/articles', auth, articlesRouter);
 
 router.post('/signup', signupValidator, signup);
 router.post('/signin', signinValidator, signin);
-router.use('*', notFoundRouter);
+router.use('*', auth, notFoundRouter);
 
 module.exports = router;

@@ -6,7 +6,7 @@ module.exports.getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
     .orFail(new NotFoundError(errorMessage.notFound.articles))
     .select()
-    .then((articles) => res.status(200).send(articles))
+    .then((articles) => res.send(articles))
     .catch(next);
 };
 
@@ -25,7 +25,18 @@ module.exports.postArticle = (req, res, next) => {
     image,
     owner: { _id: req.user._id },
   })
-    .then((card) => res.status(200).send(card))
+    .then((data) => {
+      res.status(201).send({
+        keyword: data.keyword,
+        title: data.title,
+        text: data.text,
+        date: data.date,
+        source: data.source,
+        link: data.link,
+        image: data.image,
+        _id: data._id,
+      });
+    })
     .catch(next);
 };
 
@@ -36,10 +47,10 @@ module.exports.deleteArticle = (req, res, next) => {
     .orFail(new NotFoundError(errorMessage.notFound.article))
     .then((article) => {
       if (!article.owner.equals(req.user._id)) {
-        return Promise.reject(new ForbiddenError(errorMessage.forbidden.articleDelete));
+        return Promise.reject(new ForbiddenError(errorMessage.forbidden));
       }
-      return Article.findByIdAndRemove(id);
+      return article.remove();
     })
-    .then((article) => res.status(200).send({ data: article }))
+    .then((article) => res.send({ data: article }))
     .catch(next);
 };

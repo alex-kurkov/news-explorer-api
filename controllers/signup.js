@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
-const { AuthorizationError } = require('../errors/index');
+const { AuthorizationError, ConflictError } = require('../errors/index');
 const errorMessage = require('../errorMessagesConfig');
 
 const signup = (req, res, next) => {
@@ -15,8 +15,13 @@ const signup = (req, res, next) => {
       email, password: hash, name,
     }))
     .then(({ _id }) => User.findById(_id).select())
-    .then((user) => res.status(200).send({ data: user }))
-    .catch(next);
+    .then((user) => res.send({ data: user }))
+    .catch((err) => {
+      if (err.name === 'MongoError' && err.code === 11000) {
+        return next(new ConflictError(errorMessage.conflict));
+      }
+      return next(err);
+    });
 };
 
 module.exports = signup;
