@@ -23,14 +23,13 @@ mongoose.connect(mongoDBName, {
 app.use(cors({
   origin: whiteListCors,
 }));
-app.set('trust proxy', 1);
-app.use(rateLimiter);
 app.use(helmet());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use(requestLogger);
+app.set('trust proxy', 1);
+app.use(rateLimiter);
 app.use(router);
 app.use(errorLogger);
 /* app.use(errors()); */
