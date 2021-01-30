@@ -9,7 +9,7 @@ const router = require('./routes/index');
 const errorHandler = require('./middlewares/error-handler');
 const { rateLimiter } = require('./middlewares/rateLimiter');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { PORT, whiteListCors, mongoDBName } = require('./config');
+const { PORT, mongoDBName } = require('./config');
 
 const app = express();
 
@@ -20,9 +20,7 @@ mongoose.connect(mongoDBName, {
   useUnifiedTopology: true,
 });
 
-app.use(cors({
-  origin: whiteListCors,
-}));
+app.use(cors());
 app.use(helmet());
 
 app.use(bodyParser.json());
