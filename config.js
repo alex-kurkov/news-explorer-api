@@ -1,12 +1,13 @@
 require('dotenv').config();
 
 const whiteListCors = [
-  'https://news.students.nomoreparties.xyz',
-  'http://news.students.nomoreparties.xyz',
-  'https://www.news.students.nomoreparties.xyz',
-  'http://www.news.students.nomoreparties.xyz',
+  'https://kurkov-news.students.nomoreparties.xyz/',
+  'http://kurkov-news.students.nomoreparties.xyz/',
+  'https://www.kurkov-news.students.nomoreparties.xyz/',
+  'http://www.kurkov-news.students.nomoreparties.xyz/',
   'http://localhost:3000',
   'http://localhost:3005',
+  'http://localhost:3001',
 ];
 
 const {
